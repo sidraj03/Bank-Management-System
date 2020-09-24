@@ -293,6 +293,7 @@ public class Signup extends JFrame implements ActionListener{
 				s.executeUpdate(signup_query);
 				
 				//set signup 2 as visible
+				
 				}
 				
 			}
