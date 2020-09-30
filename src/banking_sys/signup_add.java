@@ -195,6 +195,7 @@ public class signup_add extends JFrame implements ActionListener{
  		setVisible(true);
       
 	}
+	
 	public void actionPerformed(ActionEvent event) {
 	   	
 		String religion_val,category_val,income_val, education_val,occupation_val,pan_val
@@ -233,6 +234,10 @@ public class signup_add extends JFrame implements ActionListener{
             String signup_query="insert into signup_ad values('"+religion_val+"',' "+category_val+" ','"+income_val+"','"+education_val+"','"+occupation_val+"','"+pan_val+"',"
             		+ "'"+aadhar_val+"','"+senior_val+"','"+existingac_val+"')";		
 			s.executeUpdate(signup_query);
+			
+			new signup_ac_details().setVisible(true);
+			setVisible(false);
+			
 			}
 			
 		}
@@ -245,7 +250,7 @@ public class signup_add extends JFrame implements ActionListener{
 	
 	
 	public static void main(String [] args) {
-		signup_add obj=new signup_add();
+		new signup_add().setVisible(true);;
 	}
 	
 }

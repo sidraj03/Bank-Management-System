@@ -94,21 +94,22 @@ public class Login extends JFrame implements ActionListener{
 		
 }
 	
-public void performAction(ActionEvent event) {
+public void actionPerformed(ActionEvent event) {
 	
+	String card_det=card_text.getText();
+	String pin_det=pin_text.getText();
 	//exception handling as dealing with database connections
 	try {
-		connection_db dbobject=new connection_db();
-		String card_det=card_text.getText();
-		String pin_det=pin_text.getText();
-		
+		Connection con=connection_db.getConnection();
+		Statement s=con.createStatement();
 		//query the database and store results in a result set
 		String query="Select* from login where cardno='"+card_det+"' and pin='"+pin_det+"'";
-		ResultSet rs=dbobject.s.executeQuery(query);
+		ResultSet rs=s.executeQuery(query);
 		
 		if(event.getSource()==signin_but) {
 			if(rs.next()) {
 				//open transaction class and set visibility as true for transaction window while hiding login window
+				new transaction().setVisible(true);
 				setVisible(false);
 			}
 			else {
@@ -123,6 +124,7 @@ public void performAction(ActionEvent event) {
 		}
 		else if(event.getSource()==signup_but){
 			//open sign-up class and set visibility as true for signup window while hiding login window
+			new Signup().setVisible(true);
 			setVisible(false);
 		}
 	}
@@ -132,7 +134,7 @@ public void performAction(ActionEvent event) {
 }
 
 public static void main(String[]args) {
-	Login l1=new Login();
+	Login obj=new Login();
 }
 
 }

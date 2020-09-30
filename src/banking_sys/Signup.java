@@ -293,8 +293,10 @@ public class Signup extends JFrame implements ActionListener{
 				s.executeUpdate(signup_query);
 				
 				//set signup 2 as visible
+				new signup_add().setVisible(true);
+				setVisible(false);
 				
-				}
+			}
 				
 			}
 			catch(Exception e){
@@ -305,7 +307,7 @@ public class Signup extends JFrame implements ActionListener{
 		}
 		
 		public static void main(String[]args) {
-			Signup ob1=new Signup();
+			new Signup().setVisible(true);
 		}
 		    
 			
