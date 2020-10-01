@@ -18,7 +18,8 @@ public class signup_ac_details extends JFrame implements ActionListener {
 	
 	JButton Submit,Cancel;
 
- 
+	public static String signup_pin="";
+	
 	signup_ac_details(){
 	 
     //intialising labels
@@ -183,7 +184,7 @@ public class signup_ac_details extends JFrame implements ActionListener {
    }
 	public void actionPerformed(ActionEvent event) {
 		String ac_type="",service_req="";
-	
+		
 		if(saving_ac.isSelected()) {
 			ac_type="Savings Account";
 		}
@@ -205,9 +206,10 @@ public class signup_ac_details extends JFrame implements ActionListener {
 		long first3=(num.nextLong()%9000L)+1000L;
 		long first4=Math.abs(first3);
 	
+		signup_pin=Long.toString(first4);
 		
 		if(Atm_box.isSelected()) {
-			service_req=service_req+"ATM card ";
+			service_req=service_req+"ATM card, ";
 		}
 		if(intbank_box.isSelected()) {
 			service_req=service_req+"Internet Banking ";
@@ -247,6 +249,7 @@ public class signup_ac_details extends JFrame implements ActionListener {
             String login_query="insert into login values('"+first8+"',' "+first4+"')";
 			s.executeUpdate(signup_query);
 			s.executeUpdate(login_query);
+			JOptionPane.showMessageDialog(null,"Your card number is: "+first8+"\n"+"Your pin is: "+first4);
 			
 			new Deposit().setVisible(true);
 			setVisible(false);

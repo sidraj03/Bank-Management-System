@@ -64,11 +64,72 @@ public class Widthrawl extends JFrame implements ActionListener {
 	    
 	  Exit.setBounds(290,550,150,50);
 	  add(Exit);
+	
+	    widthraw.addActionListener(this);
+	    Back.addActionListener(this);
+	    Exit.addActionListener(this);
+	  
+	  
 	  
 	  setSize(750,750);
 	  setLocation(500,200);
 	  setVisible(true);
 	  
+	 }
+	 
+	 
+	 public void actionPerformed(ActionEvent event) {
+		 
+		 String widthraw_amount=amount.getText();
+		 double balance_amnt,widthraw_val;
+		 String pin="";
+		 
+		 pin=transaction.transaction_pin;
+		 
+		 if(event.getSource()==widthraw) {
+			 
+		
+		 if(widthraw_amount=="") {
+			 JOptionPane.showMessageDialog(null,"Fill all required fields");
+		  }
+		
+		else {
+				 try {
+				    Connection con=connection_db.getConnection();
+					Statement s=con.createStatement();
+					String query="Select*from bank_amount where pin="+pin+" ";
+					ResultSet res=s.executeQuery(query);
+					
+					if(res.next()){
+						balance_amnt=res.getDouble("balance");
+						widthraw_val=Double.parseDouble(widthraw_amount);
+						balance_amnt-=widthraw_val;
+						String update="Update bank_amount set balance='"+balance_amnt+"'where pin='"+pin+"'";
+						s.executeUpdate(update);
+						
+						JOptionPane.showMessageDialog(null,"Amount Successfully widthrawn");
+						new transaction().setVisible(true);
+						setVisible(false);
+					}
+				 }
+				 
+				 catch(Exception ex) {
+					 ex.printStackTrace();
+				 }
+			 }
+		 
+		 }
+		 
+		 else if(event.getSource()==Back) {
+			 
+			 new transaction().setVisible(true);
+			 setVisible(false);
+			 
+		 }
+		 else if(event.getSource()==Exit) {
+			 System.exit(0);
+		 }
+		 
 	 }
 	 
 	 public static void main(String[]args) {

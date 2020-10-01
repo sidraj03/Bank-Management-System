@@ -78,12 +78,66 @@ public class ChangePin extends JFrame implements ActionListener{
     add(Back);
     
     
+    
+    Save.addActionListener(this);
+    Back.addActionListener(this);
+    
       setSize(750,750);
 	  setLocation(500,200);
 	  setVisible(true);
     
-	}
-
+}
+	
+ public void actionPerformed(ActionEvent event) {
+	 
+	 String curr_pin=current_field.getText();
+	 String new_pin=reenter_field.getText();
+	 if(event.getSource()==Save) {
+		
+		 if(current_field.getText().equals("")) { 
+			 JOptionPane.showMessageDialog(null,"Please fill the current pin");	
+		 }
+		 if(new_field.getText().equals(""))
+		 {
+			 JOptionPane.showMessageDialog(null,"Please fill the new pin");
+			 
+		 }
+		 if(reenter_field.equals("")) {
+			 JOptionPane.showMessageDialog(null,"Reenter new pin");
+		 }
+		 
+		 if(reenter_field.getText().equals(new_field.getText()))
+		 {
+		    try { 
+		    	
+		    	Connection con=connection_db.getConnection();
+				
+		    	Statement s=con.createStatement();
+		    	
+			   String query_bank="Update bank_amount set pin='"+new_pin+"'where pin='"+curr_pin+"'";
+			   s.execute(query_bank);
+//				String query_login="Update login set pin="+new_pin+"where pin="+curr_pin;
+//				s.executeUpdate(query_login);
+//			   String query_signup="Update signup_ac set pin='"+new_pin+"'where pin='"+curr_pin+"'";
+//			   s.executeUpdate(query_signup);
+				
+				JOptionPane.showMessageDialog(null,"PIN change Successful");
+				new transaction().setVisible(true);
+				setVisible(false);
+				
+		    }
+		    catch(Exception ex) {
+		    	ex.printStackTrace();
+		    }
+		    
+	    }
+	 }
+	 else {
+		 JOptionPane.showMessageDialog(null,"PIN entered doesn't match");
+	 }
+	 
+	
+ }
 	public static void main(String[]args) {
 		ChangePin obj1=new ChangePin();
 	}

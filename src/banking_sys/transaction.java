@@ -10,7 +10,8 @@ public class transaction extends JFrame implements ActionListener {
 	
 JLabel main_heading;
 JButton deposit,fast_cash,pin_change,cash_widthrawl,mini_statement,balance_enquiry,exit;
-	 
+public static String transaction_pin="";
+
  transaction(){
 
 	main_heading=new JLabel("Please Select Your Transactions");
@@ -72,6 +73,12 @@ JButton deposit,fast_cash,pin_change,cash_widthrawl,mini_statement,balance_enqui
     exit.setBounds(250,600,200,50);
     add(exit);
     
+    deposit.addActionListener(this);
+    pin_change.addActionListener(this);
+    balance_enquiry.addActionListener(this);
+    cash_widthrawl.addActionListener(this);
+    exit.addActionListener(this);
+    
 
     setSize(750,750);
 	setLocation(500,200); 
@@ -96,17 +103,22 @@ JButton deposit,fast_cash,pin_change,cash_widthrawl,mini_statement,balance_enqui
 	 }
 	 
 	 else if(event.getSource()==balance_enquiry) {
-	    String pin=JOptionPane.showInputDialog("Enter Pin");
-	    
+	  transaction_pin=JOptionPane.showInputDialog("Enter Pin");
+	  
 	    try {
 	    Connection con=connection_db.getConnection();
 		Statement s=con.createStatement();
-		String query="Select balance from bank where pin='"+pin+"' ";
+		//String query="Select balance from bank_amount where pin='"+transaction_pin+"' ";
+		String query="Select balance from bank_amount where pin="+transaction_pin;
+		
 		ResultSet res=s.executeQuery(query);
 		
 		 if(res.next()) {
 	 	   String balance=res.getString("balance");
            JOptionPane.showMessageDialog(null,"Your account balance is "+balance);
+		 }
+		 else {
+			 System.out.println("false");
 		 }
 		
 	    }
@@ -115,7 +127,7 @@ JButton deposit,fast_cash,pin_change,cash_widthrawl,mini_statement,balance_enqui
 	    	ex.printStackTrace();
 	    }
 	 }
-	 else if(event.getSource()==Exit)
+	 else if(event.getSource()==exit)
 	 {
 		 System.exit(0);
 	 }

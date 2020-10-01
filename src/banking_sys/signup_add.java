@@ -249,8 +249,8 @@ public class signup_add extends JFrame implements ActionListener{
 	}
 	
 	
-	public static void main(String [] args) {
-		new signup_add().setVisible(true);;
-	}
+//	public static void main(String [] args) {
+//		new signup_add().setVisible(true);
+//	}
 	
 }

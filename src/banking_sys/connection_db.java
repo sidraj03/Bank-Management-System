@@ -15,21 +15,21 @@ public class connection_db {
 	          throw new RuntimeException("Error connecting to the database", ex);
 	      }
 	    }
-	    public static void main(String[] args) {
-	        Connection connection = connection_db.getConnection();
-	        try {
-	        Statement st=connection.createStatement();
-	        ResultSet rs = st.executeQuery("select * from emp");
-	        while(rs.next()) {
-	        	System.out.println(rs.getString(1)+" "+rs.getString(2));
-	        }
-	        	
-	        }
-	        catch(Exception e) {
-	        	e.printStackTrace();
-	        }
-	    }
 }
+//	    public static void main(String[] args) {
+//	        Connection connection = connection_db.getConnection();
+//	        try {
+//	        Statement st=connection.createStatement();
+//	        ResultSet rs = st.executeQuery("select * from emp");
+//	        while(rs.next()) {
+//	        	System.out.println(rs.getString(1)+" "+rs.getString(2));
+//	        }
+//	        	
+//	        }
+//	        catch(Exception e) {
+//	        	e.printStackTrace();
+//	        }
+//	    }
 //    public connection_db() {
 //    	try {
 //    		String query="Select"
