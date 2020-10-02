@@ -12,6 +12,7 @@ public class Login extends JFrame implements ActionListener{
 	JPasswordField pin_text;
 	JButton signup_but,signin_but,clear_but;
 	
+	public static String transaction_pin="";
 	Login(){
 		//System.out.println("Hey");
 		//moving text to center add later
@@ -98,12 +99,13 @@ public void actionPerformed(ActionEvent event) {
 	
 	String card_det=card_text.getText();
 	String pin_det=pin_text.getText();
+	transaction_pin=pin_det;
 	//exception handling as dealing with database connections
 	try {
 		Connection con=connection_db.getConnection();
 		Statement s=con.createStatement();
 		//query the database and store results in a result set
-		String query="Select* from login where cardno='"+card_det+"' and pin='"+pin_det+"'";
+		String query="Select* from login where cardno="+card_det+" and pin="+pin_det;
 		ResultSet rs=s.executeQuery(query);
 		
 		if(event.getSource()==signin_but) {
@@ -115,7 +117,6 @@ public void actionPerformed(ActionEvent event) {
 			else {
 				JOptionPane.showMessageDialog(null,"Incorrect Card number or Password");
 			}
-			
 			
 		}
 		else if(event.getSource()==clear_but) {

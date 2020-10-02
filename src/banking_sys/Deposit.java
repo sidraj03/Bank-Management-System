@@ -70,9 +70,9 @@ public class Deposit extends JFrame implements ActionListener {
 	 int flag=0;
 	 
 	 
-	 if(!(transaction.transaction_pin.equals(""))) {
-		 System.out.println(transaction.transaction_pin);
-		 pin=transaction.transaction_pin;
+	 if(!(Login.transaction_pin.equals(""))) {
+		 System.out.println(Login.transaction_pin);
+		 pin=Login.transaction_pin;
 		 flag=0;
 	 }
 	 
@@ -95,22 +95,21 @@ public class Deposit extends JFrame implements ActionListener {
 				deposit_val=Double.parseDouble(deposit_amount);
 				
 				if(flag==1) {	
-				  query="Insert into bank_amount values(' "+pin+" ',' "+deposit_val+"')";	
+				  query="Insert into bank_amount values('"+pin+"','"+deposit_val+"')";	
 				  s.executeUpdate(query);
 				  JOptionPane.showMessageDialog(null,"Amount Successfully Deposited");
 				  setVisible(false);
-				  System.exit(0);
+				  new Login().setVisible(true);
 				}
 				
 				else if(flag==0) {
-					
-				    query="Select*from bank_amount where pin='"+pin+"' ";
+				    query="Select*from bank_amount where pin="+pin;
 					ResultSet res=s.executeQuery(query);			
 				
 				   if(res.next()){
 					balance_amnt=res.getDouble("balance");
 					balance_amnt+=deposit_val;
-					String update="Update bank_amount set balance='"+balance_amnt+"' where pin='"+pin+"'";
+					String update="Update bank_amount set balance="+balance_amnt+" where pin="+pin;
 					s.executeUpdate(update);
 				   }
 				

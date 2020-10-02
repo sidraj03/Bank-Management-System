@@ -114,12 +114,12 @@ public class ChangePin extends JFrame implements ActionListener{
 				
 		    	Statement s=con.createStatement();
 		    	
-			   String query_bank="Update bank_amount set pin='"+new_pin+"'where pin='"+curr_pin+"'";
+			   String query_bank="Update bank_amount set pin="+new_pin+" where pin="+curr_pin;
 			   s.execute(query_bank);
-//				String query_login="Update login set pin="+new_pin+"where pin="+curr_pin;
-//				s.executeUpdate(query_login);
-//			   String query_signup="Update signup_ac set pin='"+new_pin+"'where pin='"+curr_pin+"'";
-//			   s.executeUpdate(query_signup);
+			   String query_login="Update login set pin="+new_pin+" where pin="+curr_pin;
+			   s.executeUpdate(query_login);
+			   String query_signup="Update signup_ac set pin="+new_pin+" where pin="+curr_pin;
+			   s.executeUpdate(query_signup);
 				
 				JOptionPane.showMessageDialog(null,"PIN change Successful");
 				new transaction().setVisible(true);

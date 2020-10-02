@@ -84,7 +84,7 @@ public class Widthrawl extends JFrame implements ActionListener {
 		 double balance_amnt,widthraw_val;
 		 String pin="";
 		 
-		 pin=transaction.transaction_pin;
+		 pin=Login.transaction_pin;
 		 
 		 if(event.getSource()==widthraw) {
 			 
@@ -97,14 +97,14 @@ public class Widthrawl extends JFrame implements ActionListener {
 				 try {
 				    Connection con=connection_db.getConnection();
 					Statement s=con.createStatement();
-					String query="Select*from bank_amount where pin="+pin+" ";
+					String query="Select*from bank_amount where pin="+pin;
 					ResultSet res=s.executeQuery(query);
 					
 					if(res.next()){
 						balance_amnt=res.getDouble("balance");
 						widthraw_val=Double.parseDouble(widthraw_amount);
 						balance_amnt-=widthraw_val;
-						String update="Update bank_amount set balance='"+balance_amnt+"'where pin='"+pin+"'";
+						String update="Update bank_amount set balance="+balance_amnt+" where pin="+pin;
 						s.executeUpdate(update);
 						
 						JOptionPane.showMessageDialog(null,"Amount Successfully widthrawn");

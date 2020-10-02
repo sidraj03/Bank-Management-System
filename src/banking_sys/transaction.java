@@ -10,7 +10,7 @@ public class transaction extends JFrame implements ActionListener {
 	
 JLabel main_heading;
 JButton deposit,fast_cash,pin_change,cash_widthrawl,mini_statement,balance_enquiry,exit;
-public static String transaction_pin="";
+//public static String transaction_pin="";
 
  transaction(){
 
@@ -86,7 +86,6 @@ public static String transaction_pin="";
  
  public void actionPerformed(ActionEvent event) {
 	 
-	 
 	 if(event.getSource()==deposit) {
 		 new Deposit().setVisible(true);
 		 setVisible(false);
@@ -103,13 +102,13 @@ public static String transaction_pin="";
 	 }
 	 
 	 else if(event.getSource()==balance_enquiry) {
-	  transaction_pin=JOptionPane.showInputDialog("Enter Pin");
+	  //transaction_pin=JOptionPane.showInputDialog("Enter Pin");
 	  
 	    try {
 	    Connection con=connection_db.getConnection();
 		Statement s=con.createStatement();
 		//String query="Select balance from bank_amount where pin='"+transaction_pin+"' ";
-		String query="Select balance from bank_amount where pin="+transaction_pin;
+		String query="Select balance from bank_amount where pin="+Login.transaction_pin;
 		
 		ResultSet res=s.executeQuery(query);
 		
